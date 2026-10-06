@@ -14,8 +14,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from casebook.result import Result
-from casebook.suite import Suite, SuiteError
+from casecheck.result import Result
+from casecheck.suite import Suite, SuiteError
 
 Target = Callable[[Any], Result]
 

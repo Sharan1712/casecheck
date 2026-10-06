@@ -1,4 +1,4 @@
-"""casebook command line."""
+"""casecheck command line."""
 
 from __future__ import annotations
 
@@ -10,11 +10,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from casebook import __version__
-from casebook.compare import compare
-from casebook.report import print_run, render_html
-from casebook.runner import run_suite
-from casebook.suite import SuiteError, load_suite
+from casecheck import __version__
+from casecheck.compare import compare
+from casecheck.report import print_run, render_html
+from casecheck.runner import run_suite
+from casecheck.suite import SuiteError, load_suite
 
 EXIT_OK, EXIT_FAILED, EXIT_USAGE = 0, 1, 2
 
@@ -45,7 +45,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         baseline_path = _previous_run(out_dir, slug)
         if baseline_path is None:
             print(
-                "casebook: no previous run to compare with yet; this run becomes the baseline.",
+                "casecheck: no previous run to compare with yet; this run becomes the baseline.",
                 file=sys.stderr,
             )
     elif args.baseline:
@@ -60,7 +60,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         skip_judge=args.no_judge,
     )
     if not run["cases"]:
-        print("casebook: no cases matched --only/--tag", file=sys.stderr)
+        print("casecheck: no cases matched --only/--tag", file=sys.stderr)
         return EXIT_USAGE
 
     diff = compare(_load_run(baseline_path), run) if baseline_path else None
@@ -80,12 +80,12 @@ def cmd_run(args: argparse.Namespace) -> int:
     failing = False
     if args.fail_under is not None and run["summary"]["pass_rate"] < args.fail_under:
         print(
-            f"casebook: pass rate {run['summary']['pass_rate']:.0%} is below {args.fail_under:.0%}",
+            f"casecheck: pass rate {run['summary']['pass_rate']:.0%} is below {args.fail_under:.0%}",
             file=sys.stderr,
         )
         failing = True
     if args.no_regressions and diff and diff["broken"]:
-        print(f"casebook: {len(diff['broken'])} case(s) broke: {', '.join(diff['broken'])}", file=sys.stderr)
+        print(f"casecheck: {len(diff['broken'])} case(s) broke: {', '.join(diff['broken'])}", file=sys.stderr)
         failing = True
     if args.fail_under is None and not args.no_regressions and run["summary"]["failed"]:
         failing = True
@@ -111,14 +111,14 @@ def cmd_report(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="casebook", description="Test cases for AI agents.")
-    parser.add_argument("--version", action="version", version=f"casebook {__version__}")
+    parser = argparse.ArgumentParser(prog="casecheck", description="Test cases for AI agents.")
+    parser.add_argument("--version", action="version", version=f"casecheck {__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
 
     run = sub.add_parser("run", help="run a suite of cases against your agent")
     run.add_argument("suite", help="path to the suite YAML file")
     run.add_argument(
-        "--out-dir", default=".casebook/runs", help="where run files are saved (default: .casebook/runs)"
+        "--out-dir", default=".casecheck/runs", help="where run files are saved (default: .casecheck/runs)"
     )
     run.add_argument("--html", metavar="PATH", help="also write a single-file HTML report")
     run.add_argument("--baseline", metavar="RUN", help="compare with a previous run file, or `last`")
@@ -145,7 +145,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     rep = sub.add_parser("report", help="write the HTML report for a saved run")
     rep.add_argument("run")
-    rep.add_argument("-o", "--output", default="casebook-report.html")
+    rep.add_argument("-o", "--output", default="casecheck-report.html")
     rep.add_argument("--baseline", metavar="RUN", help="show fixed/broken against this run")
     rep.set_defaults(func=cmd_report)
     return parser
@@ -156,7 +156,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         return args.func(args)
     except SuiteError as exc:
-        print(f"casebook: {exc}", file=sys.stderr)
+        print(f"casecheck: {exc}", file=sys.stderr)
         return EXIT_USAGE
 
 

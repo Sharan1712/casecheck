@@ -6,7 +6,7 @@ from typing import Any
 
 @dataclass
 class Result:
-    """What an agent returns when it wants casebook to record more than the output.
+    """What an agent returns when it wants casecheck to record more than the output.
 
     Return a plain value (str, dict, list, number) from your agent for the simple case.
     Return a Result to also record token usage and tool calls in the trace.

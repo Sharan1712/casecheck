@@ -21,4 +21,4 @@ jobs:
       - run: pytest -q
       - name: Demo suite (expects the one deliberate failure)
         working-directory: examples/unit_converter
-        run: casebook run cases.yaml --no-judge --fail-under 0.8
+        run: casecheck run cases.yaml --no-judge --fail-under 0.8

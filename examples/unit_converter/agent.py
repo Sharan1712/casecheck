@@ -1,4 +1,4 @@
-"""A tiny, deterministic "agent" for trying casebook without an API key.
+"""A tiny, deterministic "agent" for trying casecheck without an API key.
 
 It parses a request like "Convert 10 km to miles", calls a conversion tool and returns
 a structured answer. It has one deliberate bug, so the first run shows a failing case.
@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import re
 
-from casebook import Result
+from casecheck import Result
 
 UNITS = {
     "km": "km",

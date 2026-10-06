@@ -1,4 +1,4 @@
-# Try it:  casebook run examples/unit_converter/cases.yaml --no-judge
+# Try it:  casecheck run examples/unit_converter/cases.yaml --no-judge
 name: unit converter
 target:
   python: agent.py:agent

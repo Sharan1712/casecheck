@@ -7,11 +7,11 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from typing import Any
 
-from casebook import __version__
-from casebook.checks import CheckContext, CheckResult, run_check
-from casebook.judge import Judge
-from casebook.suite import Case, Suite
-from casebook.targets import Target, build_target
+from casecheck import __version__
+from casecheck.checks import CheckContext, CheckResult, run_check
+from casecheck.judge import Judge
+from casecheck.suite import Case, Suite
+from casecheck.targets import Target, build_target
 
 
 def _add_usage(total: dict[str, int], usage: dict[str, Any]) -> None:
@@ -95,7 +95,7 @@ def run_suite(
         _add_usage(judge_tokens, r.get("judge_usage") or {})
 
     return {
-        "casebook_version": __version__,
+        "casecheck_version": __version__,
         "suite": suite.name,
         "suite_path": str(suite.path),
         "target": description,
