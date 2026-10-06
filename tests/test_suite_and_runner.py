@@ -41,6 +41,7 @@ def test_judge_checks_use_the_injected_judge(example_suite_path):
         ),
         ("target: {python: a:b}\ncases:\n  - {id: a, input: x}\n  - {id: a, input: y}\n", "duplicate"),
         ("target: {python: a:b}\ncases:\n  - input: x\n    checks:\n      - number: 3\n", "equals"),
+        ("target: {js: a.ts:b}\ncases:\n  - input: x\n", "TypeScript edition"),
     ],
 )
 def test_suite_validation(write_suite, body, message):

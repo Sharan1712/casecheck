@@ -117,7 +117,11 @@ def load_suite(path: str | Path) -> Suite:
 
     target = data.get("target")
     if not isinstance(target, dict) or not ({"python", "command", "http"} & target.keys()):
-        raise SuiteError(f"{path}: `target:` needs one of `python:`, `command:` or `http:`")
+        js_only = isinstance(target, dict) and "js" in target
+        raise SuiteError(
+            f"{path}: `target:` needs one of `python:`, `command:` or `http:`"
+            + (" (this suite only has a `js:` target; run it with the TypeScript edition)" if js_only else "")
+        )
 
     raw_cases = data.get("cases")
     if not isinstance(raw_cases, list) or not raw_cases:

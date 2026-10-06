@@ -1,7 +1,10 @@
 # Try it:  casebook run examples/unit_converter/cases.yaml --no-judge
+# Works with both editions (pip install casebook / npm i -g @sharan1712/casebook).
 name: unit converter
+# Each edition picks its own target; the cases are shared.
 target:
-  python: agent.py:agent
+  python: agent.py:agent   # Python edition
+  js: agent.ts:agent       # TypeScript edition
 
 # Used by `judge:` checks. Remove --no-judge to run them (needs Anthropic credentials).
 judge:

@@ -34,6 +34,8 @@ pip install "casebook[judge] @ git+https://github.com/Sharan1712/casebook"
 
 Python 3.10+. Drop `[judge]` if you don't need LLM-graded checks.
 
+**TypeScript?** There's a TypeScript edition with the same suite format, the same run files and the same CLI: `npm install -D @sharan1712/casebook`. See [typescript/README.md](typescript/README.md).
+
 ## Try it in two minutes
 
 The repo ships a tiny unit-converter agent with one deliberate bug. No API key needed.
