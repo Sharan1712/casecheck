@@ -9,8 +9,8 @@ from typing import Any
 
 import jsonschema
 
-from casebook.judge import Judge
-from casebook.suite import Check
+from casecheck.judge import Judge
+from casecheck.suite import Check
 
 NUMBER_RE = re.compile(r"-?\d+(?:[.,]\d+)?(?:[eE]-?\d+)?")
 

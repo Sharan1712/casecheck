@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 
-from casebook.cli import EXIT_FAILED, EXIT_OK, EXIT_USAGE, main
+from casecheck.cli import EXIT_FAILED, EXIT_OK, EXIT_USAGE, main
 
 
 def _copy_example(example_suite_path, tmp_path):

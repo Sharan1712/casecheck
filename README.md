@@ -1,9 +1,9 @@
-# casebook
+# casecheck
 
 **Test cases for AI agents.** Write cases in a YAML file, run one command, and see which cases pass, why the others failed, and what your last change fixed or broke.
 
 ```text
-$ casebook run cases.yaml --no-judge --baseline last
+$ casecheck run cases.yaml --no-judge --baseline last
 unit converter  python agent.py:agent
 
   ✓ km-to-miles  0 ms
@@ -22,32 +22,32 @@ unit converter  python agent.py:agent
     fixed: fahrenheit-to-celsius
 ```
 
-I build agents for a living, and the question I ask most is "did this prompt change make things better, or just different?" A pass rate alone hides that a change can fix three cases and quietly break one. casebook answers it case by case.
+I build agents for a living, and the question I ask most is "did this prompt change make things better, or just different?" A pass rate alone hides that a change can fix three cases and quietly break one. casecheck answers it case by case.
 
 ![HTML report](docs/report.png)
 
 ## Install
 
 ```bash
-pip install "casebook[judge] @ git+https://github.com/Sharan1712/casebook"
+pip install "casecheck[judge] @ git+https://github.com/Sharan1712/casecheck"
 ```
 
 Python 3.10+. Drop `[judge]` if you don't need LLM-graded checks.
 
-**TypeScript?** There's a TypeScript edition with the same suite format, the same run files and the same CLI: `npm install -D @sharan1712/casebook`. See [typescript/README.md](typescript/README.md).
+**TypeScript?** There's a TypeScript edition with the same suite format, the same run files and the same CLI: `npm install -D casecheck`. See [typescript/README.md](typescript/README.md).
 
 ## Try it in two minutes
 
 The repo ships a tiny unit-converter agent with one deliberate bug. No API key needed.
 
 ```bash
-git clone https://github.com/Sharan1712/casebook && cd casebook
+git clone https://github.com/Sharan1712/casecheck && cd casecheck
 pip install -e ".[judge]"
 cd examples/unit_converter
 
-casebook run cases.yaml --no-judge          # 8/9 pass: Fahrenheit → Celsius is wrong
+casecheck run cases.yaml --no-judge          # 8/9 pass: Fahrenheit → Celsius is wrong
 # fix the formula in agent.py, then:
-casebook run cases.yaml --no-judge --baseline last --html report.html
+casecheck run cases.yaml --no-judge --baseline last --html report.html
 ```
 
 The second run tells you `fahrenheit-to-celsius` is fixed and writes a single-file HTML report.
@@ -113,7 +113,7 @@ For `command` and `http` targets, returning JSON shaped like `{"output": ..., "u
 Return a plain value from your agent for the simple case. Return a `Result` to also record token usage, tool calls and anything else worth keeping:
 
 ```python
-from casebook import Result
+from casecheck import Result
 
 
 def run(request: str) -> Result:
@@ -141,13 +141,13 @@ Keep deterministic checks for anything deterministic. Use the judge for what onl
 
 ## Comparing runs and CI
 
-Every run is saved as JSON in `.casebook/runs/`.
+Every run is saved as JSON in `.casecheck/runs/`.
 
 ```bash
-casebook run cases.yaml --baseline last          # compare with the previous run of this suite
-casebook run cases.yaml --baseline main.json     # or with a specific run file
-casebook compare old.json new.json               # compare two saved runs
-casebook report run.json -o report.html          # HTML for a saved run
+casecheck run cases.yaml --baseline last          # compare with the previous run of this suite
+casecheck run cases.yaml --baseline main.json     # or with a specific run file
+casecheck compare old.json new.json               # compare two saved runs
+casecheck report run.json -o report.html          # HTML for a saved run
 ```
 
 Exit codes make it CI-ready:

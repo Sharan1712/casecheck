@@ -5,10 +5,10 @@ import sys
 
 import pytest
 
-from casebook.compare import compare
-from casebook.judge import Judge
-from casebook.runner import run_suite
-from casebook.suite import SuiteError, load_suite
+from casecheck.compare import compare
+from casecheck.judge import Judge
+from casecheck.runner import run_suite
+from casecheck.suite import SuiteError, load_suite
 from tests.conftest import fake_client
 
 

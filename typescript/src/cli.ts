@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** casebook command line (TypeScript edition). Same flags and exit codes as the Python edition. */
+/** casecheck command line (TypeScript edition). Same flags and exit codes as the Python edition. */
 import { mkdirSync, readdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,11 +14,11 @@ export const EXIT_OK = 0;
 export const EXIT_FAILED = 1;
 export const EXIT_USAGE = 2;
 
-const USAGE = `usage: casebook <command> [options]
+const USAGE = `usage: casecheck <command> [options]
 
 commands:
   run SUITE      run a suite of cases against your agent
-    --out-dir DIR        where run files are saved (default: .casebook/runs)
+    --out-dir DIR        where run files are saved (default: .casecheck/runs)
     --html PATH          also write a single-file HTML report
     --baseline RUN       compare with a previous run file, or \`last\`
     --fail-under RATE    exit 1 if the pass rate is below RATE (0-1)
@@ -66,7 +66,7 @@ async function cmdRun(args: string[]): Promise<number> {
     args,
     allowPositionals: true,
     options: {
-      "out-dir": { type: "string", default: ".casebook/runs" },
+      "out-dir": { type: "string", default: ".casecheck/runs" },
       html: { type: "string" },
       baseline: { type: "string" },
       "fail-under": { type: "string" },
@@ -79,7 +79,7 @@ async function cmdRun(args: string[]): Promise<number> {
     },
   });
   const suitePath = positionals[0];
-  if (!suitePath) throw new SuiteError("run needs a suite file: casebook run cases.yaml");
+  if (!suitePath) throw new SuiteError("run needs a suite file: casecheck run cases.yaml");
   const suite = loadSuite(suitePath);
   const outDir = values["out-dir"]!;
   const suiteSlug = slug(suite.name);
@@ -87,7 +87,7 @@ async function cmdRun(args: string[]): Promise<number> {
   let baselinePath: string | undefined;
   if (values.baseline === "last") {
     baselinePath = previousRun(outDir, suiteSlug);
-    if (!baselinePath) console.error("casebook: no previous run to compare with yet; this run becomes the baseline.");
+    if (!baselinePath) console.error("casecheck: no previous run to compare with yet; this run becomes the baseline.");
   } else if (values.baseline) {
     baselinePath = values.baseline;
   }
@@ -101,7 +101,7 @@ async function cmdRun(args: string[]): Promise<number> {
     skipJudge: values["no-judge"],
   });
   if (run.cases.length === 0) {
-    console.error("casebook: no cases matched --only/--tag");
+    console.error("casecheck: no cases matched --only/--tag");
     return EXIT_USAGE;
   }
 
@@ -120,11 +120,11 @@ async function cmdRun(args: string[]): Promise<number> {
 
   let failing = false;
   if (failUnder !== undefined && run.summary.pass_rate < failUnder) {
-    console.error(`casebook: pass rate ${Math.round(run.summary.pass_rate * 100)}% is below ${Math.round(failUnder * 100)}%`);
+    console.error(`casecheck: pass rate ${Math.round(run.summary.pass_rate * 100)}% is below ${Math.round(failUnder * 100)}%`);
     failing = true;
   }
   if (values["no-regressions"] && diff?.broken.length) {
-    console.error(`casebook: ${diff.broken.length} case(s) broke: ${diff.broken.join(", ")}`);
+    console.error(`casecheck: ${diff.broken.length} case(s) broke: ${diff.broken.join(", ")}`);
     failing = true;
   }
   if (failUnder === undefined && !values["no-regressions"] && run.summary.failed) failing = true;
@@ -146,7 +146,7 @@ function cmdReport(args: string[]): number {
   const { values, positionals } = parseArgs({
     args,
     allowPositionals: true,
-    options: { output: { type: "string", short: "o", default: "casebook-report.html" }, baseline: { type: "string" } },
+    options: { output: { type: "string", short: "o", default: "casecheck-report.html" }, baseline: { type: "string" } },
   });
   const runPath = positionals[0];
   if (!runPath) throw new SuiteError("report needs a run file");
@@ -168,7 +168,7 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
       case "report":
         return cmdReport(rest);
       case "--version":
-        console.log(`casebook ${VERSION} (typescript)`);
+        console.log(`casecheck ${VERSION} (typescript)`);
         return EXIT_OK;
       default:
         console.log(USAGE);
@@ -176,7 +176,7 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
     }
   } catch (err: any) {
     if (err instanceof SuiteError || err?.code?.startsWith?.("ERR_PARSE_ARGS")) {
-      console.error(`casebook: ${err.message}`);
+      console.error(`casecheck: ${err.message}`);
       return EXIT_USAGE;
     }
     throw err;

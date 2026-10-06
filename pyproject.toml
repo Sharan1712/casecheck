@@ -3,7 +3,7 @@ requires = ["hatchling>=1.24"]
 build-backend = "hatchling.build"
 
 [project]
-name = "casebook"
+name = "casecheck"
 version = "0.1.0"
 description = "Test cases for AI agents: write cases in YAML, run them, see what broke."
 readme = "README.md"
@@ -24,13 +24,13 @@ judge = ["anthropic>=1.0"]
 dev = ["pytest>=8.0", "ruff~=0.16.10", "anthropic>=1.0"]
 
 [project.scripts]
-casebook = "casebook.cli:main"
+casecheck = "casecheck.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/Sharan1712/casebook"
+Homepage = "https://github.com/Sharan1712/casecheck"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/casebook"]
+packages = ["src/casecheck"]
 
 [tool.ruff]
 line-length = 110

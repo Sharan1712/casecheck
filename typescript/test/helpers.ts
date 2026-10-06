@@ -5,7 +5,7 @@ import { join, resolve } from "node:path";
 export const EXAMPLE = resolve(import.meta.dirname, "../../examples/unit_converter/cases.yaml");
 
 export function tempDir(): string {
-  return mkdtempSync(join(tmpdir(), "casebook-"));
+  return mkdtempSync(join(tmpdir(), "casecheck-"));
 }
 
 export function writeSuite(dir: string, body: string, name = "suite.yaml"): string {

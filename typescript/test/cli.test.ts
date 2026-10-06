@@ -23,7 +23,7 @@ async function capture(fn: () => Promise<number>): Promise<{ code: number; out: 
 function copyExample(): string {
   const dst = join(tempDir(), "example");
   cpSync(dirname(EXAMPLE), dst, { recursive: true });
-  // The copy lives outside the repo, so point the demo agent at this checkout's casebook.
+  // The copy lives outside the repo, so point the demo agent at this checkout's casecheck.
   const agent = join(dst, "agent.ts");
   const src = join(dirname(EXAMPLE), "../../typescript/src/index.ts");
   writeFileSync(agent, readFileSync(agent, "utf8").replace("../../typescript/src/index.ts", src));

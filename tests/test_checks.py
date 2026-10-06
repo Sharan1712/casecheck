@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from casebook.checks import CheckContext, run_check
-from casebook.suite import Check
+from casecheck.checks import CheckContext, run_check
+from casecheck.suite import Check
 
 
 def ctx(latency: float = 10.0) -> CheckContext:

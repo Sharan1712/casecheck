@@ -89,9 +89,9 @@ export function renderHtml(run: RunRecord, diff?: Diff | null): string {
   const parts = [
     "<!doctype html><html lang='en'><head><meta charset='utf-8'>",
     "<meta name='viewport' content='width=device-width,initial-scale=1'>",
-    `<title>casebook · ${esc(run.suite)}</title><style>${CSS}</style></head><body><main>`,
+    `<title>casecheck · ${esc(run.suite)}</title><style>${CSS}</style></head><body><main>`,
     `<h1>${esc(run.suite)}</h1>`,
-    `<div class='meta'>${esc(run.target)} · ${esc(run.started_at)} · casebook ${esc(run.casebook_version)}` +
+    `<div class='meta'>${esc(run.target)} · ${esc(run.started_at)} · casecheck ${esc(run.casecheck_version)}` +
       (run.judge_model ? ` · judge ${esc(run.judge_model)}` : "") +
       "</div>",
     `<div class='summary'>${stats.map(([v, k]) => `<div class='stat'><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join("")}</div>`,

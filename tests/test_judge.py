@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from casebook.judge import DEFAULT_MODEL, VERDICT_SCHEMA, Judge
+from casecheck.judge import DEFAULT_MODEL, VERDICT_SCHEMA, Judge
 from tests.conftest import fake_client
 
 

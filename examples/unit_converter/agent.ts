@@ -1,8 +1,8 @@
 /**
- * A tiny, deterministic "agent" for trying casebook without an API key (TypeScript edition).
+ * A tiny, deterministic "agent" for trying casecheck without an API key (TypeScript edition).
  * Same behaviour as agent.py, including its one deliberate bug.
  */
-// In your own project: import { result } from "@sharan1712/casebook";
+// In your own project: import { result } from "casecheck";
 import { result } from "../../typescript/src/index.ts";
 
 const UNITS: Record<string, string> = {

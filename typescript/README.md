@@ -1,11 +1,11 @@
-# casebook for TypeScript
+# casecheck for TypeScript
 
-**Test cases for AI agents.** The TypeScript edition of [casebook](https://github.com/Sharan1712/casebook): write cases in YAML, run one command, and see which cases pass, why the others failed, and what your last change fixed or broke.
+**Test cases for AI agents.** The TypeScript edition of [casecheck](https://github.com/Sharan1712/casecheck): write cases in YAML, run one command, and see which cases pass, why the others failed, and what your last change fixed or broke.
 
 It reads the same suite files and writes the same run files as the Python edition, so a team can mix both and still compare runs.
 
 ```bash
-npm install --save-dev @sharan1712/casebook
+npm install --save-dev casecheck
 npm install --save-dev @anthropic-ai/sdk   # only for judge: checks
 ```
 
@@ -15,7 +15,7 @@ Node 22.18 or newer. Agents written in TypeScript run directly: Node strips the 
 
 ```ts
 // agent.ts
-import { result } from "@sharan1712/casebook";
+import { result } from "casecheck";
 
 export async function answer(question: string) {
   const response = await client.messages.create({ /* ... */ });
@@ -43,9 +43,9 @@ cases:
 ```
 
 ```bash
-npx casebook run cases.yaml                         # run it
-npx casebook run cases.yaml --baseline last         # what did my change fix or break?
-npx casebook run cases.yaml --no-judge --html report.html
+npx casecheck run cases.yaml                         # run it
+npx casecheck run cases.yaml --baseline last         # what did my change fix or break?
+npx casecheck run cases.yaml --no-judge --html report.html
 ```
 
 Checks, `command:` / `http:` targets, the judge, run comparison and CI exit codes work exactly as in the [main README](../README.md).
@@ -53,7 +53,7 @@ Checks, `command:` / `http:` targets, the judge, run comparison and CI exit code
 ## Programmatic use
 
 ```ts
-import { loadSuite, runSuite, compare, renderHtml } from "@sharan1712/casebook";
+import { loadSuite, runSuite, compare, renderHtml } from "casecheck";
 
 const run = await runSuite(loadSuite("cases.yaml"), { skipJudge: true });
 console.log(run.summary.pass_rate);

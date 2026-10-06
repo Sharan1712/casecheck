@@ -52,7 +52,7 @@ class Judge:
                 import anthropic
             except ImportError as exc:  # pragma: no cover - depends on the environment
                 raise RuntimeError(
-                    "judge checks need the Anthropic SDK: pip install 'casebook[judge]'"
+                    "judge checks need the Anthropic SDK: pip install 'casecheck[judge]'"
                 ) from exc
             # Resolves credentials from ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN or an `ant auth login` profile.
             self._client = anthropic.Anthropic()

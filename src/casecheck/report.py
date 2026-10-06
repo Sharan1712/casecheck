@@ -8,7 +8,7 @@ import os
 import sys
 from typing import Any, TextIO
 
-from casebook.compare import status_by_case
+from casecheck.compare import status_by_case
 
 
 def _color_enabled(stream: TextIO) -> bool:
@@ -122,9 +122,9 @@ def render_html(run: dict[str, Any], diff: dict[str, Any] | None = None) -> str:
     parts = [
         "<!doctype html><html lang='en'><head><meta charset='utf-8'>",
         "<meta name='viewport' content='width=device-width,initial-scale=1'>",
-        f"<title>casebook · {esc(run['suite'])}</title><style>{CSS}</style></head><body><main>",
+        f"<title>casecheck · {esc(run['suite'])}</title><style>{CSS}</style></head><body><main>",
         f"<h1>{esc(run['suite'])}</h1>",
-        f"<div class='meta'>{esc(run['target'])} · {esc(run['started_at'])} · casebook {esc(run['casebook_version'])}"
+        f"<div class='meta'>{esc(run['target'])} · {esc(run['started_at'])} · casecheck {esc(run['casecheck_version'])}"
         + (f" · judge {esc(run['judge_model'])}" if run.get("judge_model") else "")
         + "</div>",
         "<div class='summary'>"

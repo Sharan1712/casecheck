@@ -24,7 +24,7 @@ export interface CaseRecord {
 }
 
 export interface RunRecord {
-  casebook_version: string;
+  casecheck_version: string;
   edition: "typescript";
   suite: string;
   suite_path: string;
@@ -147,7 +147,7 @@ export async function runSuite(suite: Suite, opts: RunOptions = {}): Promise<Run
   }
 
   return {
-    casebook_version: VERSION,
+    casecheck_version: VERSION,
     edition: "typescript",
     suite: suite.name,
     suite_path: suite.path,

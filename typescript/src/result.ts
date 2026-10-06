@@ -1,4 +1,4 @@
-/** What an agent returns when it wants casebook to record more than the output. */
+/** What an agent returns when it wants casecheck to record more than the output. */
 export interface Usage {
   input_tokens?: number;
   output_tokens?: number;
@@ -11,7 +11,7 @@ export interface ToolCall {
   [key: string]: unknown;
 }
 
-const RESULT = Symbol.for("casebook.Result");
+const RESULT = Symbol.for("casecheck.Result");
 
 export interface Result {
   output: unknown;

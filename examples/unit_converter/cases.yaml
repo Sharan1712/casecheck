@@ -1,5 +1,5 @@
-# Try it:  casebook run examples/unit_converter/cases.yaml --no-judge
-# Works with both editions (pip install casebook / npm i -g @sharan1712/casebook).
+# Try it:  casecheck run examples/unit_converter/cases.yaml --no-judge
+# Works with both editions (pip install casecheck / npm i -g casecheck).
 name: unit converter
 # Each edition picks its own target; the cases are shared.
 target:
