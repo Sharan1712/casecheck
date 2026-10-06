@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "casebook"
+version = "0.1.0"
+description = "Test cases for AI agents: write cases in YAML, run them, see what broke."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Sharan Shyamsundar" }]
+requires-python = ">=3.10"
+keywords = ["llm", "agents", "evals", "testing", "ai"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Testing",
+  "Intended Audience :: Developers",
+]
+dependencies = ["pyyaml>=6.0", "jsonschema>=4.20"]
+
+[project.optional-dependencies]
+judge = ["anthropic>=1.0"]
+dev = ["pytest>=8.0", "ruff>=0.6", "anthropic>=1.0"]
+
+[project.scripts]
+casebook = "casebook.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Sharan1712/casebook"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/casebook"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]  # long strings (CSS, help text) are fine; the formatter handles code
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
