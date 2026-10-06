@@ -113,6 +113,7 @@ Return a plain value from your agent for the simple case. Return a `Result` to a
 ```python
 from casebook import Result
 
+
 def run(request: str) -> Result:
     response = client.messages.create(...)
     return Result(
