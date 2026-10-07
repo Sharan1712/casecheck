@@ -1,0 +1,37 @@
+{
+  "name": "casecheck",
+  "version": "0.1.0",
+  "description": "Test cases for AI agents: write cases in YAML, run them, see what broke. TypeScript edition.",
+  "license": "MIT",
+  "author": "Sharan Shyamsundar",
+  "repository": { "type": "git", "url": "git+https://github.com/Sharan1712/casecheck.git", "directory": "typescript" },
+  "keywords": ["llm", "agents", "evals", "testing", "ai"],
+  "type": "module",
+  "engines": { "node": ">=22.18" },
+  "bin": { "casecheck": "dist/cli.js" },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test 'test/*.test.ts'",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "yaml": "^2.9.1"
+  },
+  "peerDependencies": {
+    "@anthropic-ai/sdk": ">=0.131.0"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/sdk": { "optional": true }
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@types/node": "^26.6.4",
+    "typescript": "^7.0.2"
+  }
+}

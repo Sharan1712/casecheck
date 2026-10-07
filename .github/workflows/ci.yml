@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - run: ruff check . && ruff format --check .
+      - run: pytest -q
+      - name: Demo suite (expects the one deliberate failure)
+        working-directory: examples/unit_converter
+        run: casecheck run cases.yaml --no-judge --fail-under 0.8
+
+  typescript:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["22", "24"]
+    defaults:
+      run:
+        working-directory: typescript
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - name: Demo suite (expects the one deliberate failure)
+        working-directory: examples/unit_converter
+        run: node ../../typescript/dist/cli.js run cases.yaml --no-judge --fail-under 0.8
+
+  conformance:
+    name: editions agree
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: pip install -e .
+      - run: npm ci
+        working-directory: typescript
+      - name: Run the shared suite with both editions
+        working-directory: examples/unit_converter
+        run: |
+          casecheck run cases.yaml --no-judge --out-dir /tmp/runs/py || true
+          node ../../typescript/src/cli.ts run cases.yaml --no-judge --out-dir /tmp/runs/ts || true
+      - run: python scripts/conformance.py /tmp/runs/py/*.json /tmp/runs/ts/*.json
