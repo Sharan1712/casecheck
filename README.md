@@ -2,25 +2,7 @@
 
 **Test cases for AI agents.** Write cases in a YAML file, run one command, and see which cases pass, why the others failed, and what your last change fixed or broke.
 
-```text
-$ casecheck run cases.yaml --no-judge --baseline last
-unit converter  python agent.py:agent
-
-  ✓ km-to-miles  0 ms
-  ✓ miles-to-km  0 ms
-  ✓ kg-to-pounds  0 ms
-  ✓ celsius-to-fahrenheit  0 ms
-  ✓ fahrenheit-to-celsius fixed  0 ms
-  ✓ unknown-unit  0 ms
-  ✓ not-a-conversion  0 ms
-  ✓ fast-enough  0 ms
-  – clear-answer  0 ms  (1 skipped)
-
-  9/9 passed (100%)  in 0.0s
-
-  vs. baseline: 89% → 100%
-    fixed: fahrenheit-to-celsius
-```
+![casecheck catches a wrong Fahrenheit-to-Celsius answer, then the next run shows the fix](docs/demo.gif)
 
 I build agents for a living, and the question I ask most is "did this prompt change make things better, or just different?" A pass rate alone hides that a change can fix three cases and quietly break one. casecheck answers it case by case.
 
